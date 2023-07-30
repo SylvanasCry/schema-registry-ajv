@@ -23,7 +23,7 @@
     "ajv"
   ],
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "index.js",
   "scripts": {
     "prepare": "husky install",
     "clean": "rimraf dist",
