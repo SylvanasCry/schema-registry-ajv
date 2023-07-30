@@ -48,6 +48,8 @@ jobs:
         run: npx semantic-release
 
       - name: Update package.json and package-lock.json
+        env:
+          HUSKY: 0
         run: |
           cp dist/package.json .
           npm i --package-lock-only
@@ -58,5 +60,5 @@ jobs:
             git push -o ci.skip
           fi
 
-      - name: Coveralls GitHub Action
+      - name: Publish tests coverage to Coveralls
         uses: coverallsapp/github-action@v2
