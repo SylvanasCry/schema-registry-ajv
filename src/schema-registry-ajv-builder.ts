@@ -3,10 +3,7 @@ import addFormats from 'ajv-formats';
 import axios from 'axios';
 import { SchemaRegistryAjvSchemaException, SchemaRegistryAjvVersionException } from './exceptions';
 import { SchemaRegistryAjv } from './schema-registry-ajv';
-import {
-  SchemaRegistryAjvBuilderBuildReturn,
-  SchemaRegistryAjvBuilderOptions,
-} from './schema-registry-ajv-builder.types';
+import { BuildReturnType, SchemaRegistryAjvBuilderOptions } from './schema-registry-ajv-builder.types';
 
 export class SchemaRegistryAjvBuilder {
   /**
@@ -40,7 +37,7 @@ export class SchemaRegistryAjvBuilder {
     };
   }
 
-  public async build(): Promise<SchemaRegistryAjvBuilderBuildReturn> {
+  public async build(): Promise<BuildReturnType> {
     const { ajvClass, ajvFormats, schemaRegistry } = this.options;
     const version = typeof schemaRegistry.version === 'number'
       ? schemaRegistry.version
@@ -61,17 +58,11 @@ export class SchemaRegistryAjvBuilder {
     const validate = ajv.compile(schema);
     this.validate = validate;
 
-    return [
-      new SchemaRegistryAjv(ajv, validate),
-      () => this.validate.errors,
-    ];
-  }
-
-  /**
-   * Returns schema id.
-   */
-  public getSchemaId(): number {
-    return this.schemaId;
+    return {
+      ajvInstance: new SchemaRegistryAjv(ajv, validate),
+      getErrors: () => this.validate.errors,
+      getSchemaId: () => this.schemaId,
+    };
   }
 
   private async getSchema(version: number): Promise<AnySchema> {

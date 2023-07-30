@@ -14,6 +14,9 @@ The library is a wrapper for the `Ajv` instance, which is in turn used in conjun
 - Allows retrieval of `Ajv` validation errors for the payload data by pulling them up to the application level.
 - Resolves the `TypeError` when passing an `Ajv` instance to the SchemaRegistry constructor options.
 
+#### Bonus Features
+- Saves you from having to handle the schema ID.
+
 ## Installation
 
 Install the library:
@@ -53,7 +56,7 @@ const builder = new SchemaRegistryAjvBuilder({
   },
 });
 
-const [ajvInstance, getErrors] = await builder.build();
+const { ajvInstance, getSchemaId, getErrors } = await builder.build();
 
 const schemaRegistry = new SchemaRegistry({ 
   host: 'https://schema-registry.example.com:8081',
@@ -70,13 +73,13 @@ Somewhere in your code:
 // Publishing to Kafka topic
 try {
   // To encode Kafka message value
-  const value = await schemaRegistry.encode(builder.getSchemaId(), event);
+  const value = await schemaRegistry.encode(getSchemaId(), event);
 
   // ...
 } catch (err) {
   // To get Ajv validation errors
   const validationErorrs = getErrors();
-  
+
   // ...
 }
 ```

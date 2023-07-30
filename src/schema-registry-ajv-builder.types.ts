@@ -15,17 +15,32 @@ export interface AjvCustomFormat {
   format: Format;
 }
 
-export type GetErrorsFunction = () => ValidateFunction['errors'];
+export type GetSchemaId = () => number;
+export type GetErrors = () => ValidateFunction['errors'];
 
-export type SchemaRegistryAjvBuilderBuildReturn = [
-  SchemaRegistryAjvInstance,
-  GetErrorsFunction,
-];
+export interface BuildReturnType {
+  /**
+   * SchemaRegistry constructor compatible Ajv instance.
+   *
+   * @see {import('@kafkajs/confluent-schema-registry/dist/@types').JsonOptions}
+   */
+  ajvInstance: SchemaRegistryAjvInstance;
+
+  /**
+   * Returns schema id.
+   */
+  getSchemaId: GetSchemaId;
+
+  /**
+   * Returns Ajv validation errors.
+   */
+  getErrors: GetErrors;
+}
 
 export interface SchemaRegistryAjvBuilderSchemaRegistryOptions {
   /**
    * Schema Registry URI.
-   **
+   *
    * @example https://schema-registry.example.com
    * @example http://localhost:8081
    * @example http://localhost:8081/

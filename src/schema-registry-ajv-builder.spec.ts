@@ -77,11 +77,11 @@ describe('SchemaRegistryAjvBuilder', () => {
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const [ajv] = await builder.build();
+    const { ajvInstance } = await builder.build();
 
-    expect(ajv).toBeInstanceOf(SchemaRegistryAjv);
-    expect(ajv.addSchema(schema)).toBeInstanceOf(Ajv2020);
-    expect(typeof ajv.compile(schema)).toBe('function');
+    expect(ajvInstance).toBeInstanceOf(SchemaRegistryAjv);
+    expect(ajvInstance.addSchema(schema)).toBeInstanceOf(Ajv2020);
+    expect(typeof ajvInstance.compile(schema)).toBe('function');
   });
 
   it('it should provide SchemaRegistry comfortable Ajv instance', async () => {
@@ -90,10 +90,10 @@ describe('SchemaRegistryAjvBuilder', () => {
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const [ajv] = await builder.build();
+    const { ajvInstance } = await builder.build();
     const schemaRegistry = new SchemaRegistry({
       host,
-    }, { [SchemaType.JSON]: { ajvInstance: ajv } });
+    }, { [SchemaType.JSON]: { ajvInstance } });
 
     expect(schemaRegistry).toBeInstanceOf(SchemaRegistry);
   });
@@ -113,8 +113,8 @@ describe('SchemaRegistryAjvBuilder', () => {
       id: 1,
     }, headers);
 
-    await builder.build();
-    expect(builder.getSchemaId()).toBe(1);
+    const { getSchemaId } = await builder.build();
+    expect(getSchemaId()).toBe(1);
   });
 
   it('should return a latest schema id', async () => {
@@ -123,8 +123,8 @@ describe('SchemaRegistryAjvBuilder', () => {
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    await builder.build();
-    expect(builder.getSchemaId()).toBe(3);
+    const { getSchemaId } = await builder.build();
+    expect(getSchemaId()).toBe(3);
   });
 
   it('should return a default latest schema id', async () => {
@@ -142,8 +142,8 @@ describe('SchemaRegistryAjvBuilder', () => {
       id: 6,
     }, headers);
 
-    await builder.build();
-    expect(builder.getSchemaId()).toBe(6);
+    const { getSchemaId } = await builder.build();
+    expect(getSchemaId()).toBe(6);
   });
 
   it('should return validation errors', async () => {
@@ -152,8 +152,8 @@ describe('SchemaRegistryAjvBuilder', () => {
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const [ajv, getErrors] = await builder.build();
-    const validate = ajv.compile({});
+    const { ajvInstance, getErrors } = await builder.build();
+    const validate = ajvInstance.compile({});
     const isValid = validate({
       attribute: 'BROKEN',
       custom: 'value',
