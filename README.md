@@ -15,6 +15,7 @@ The library is a wrapper for the `Ajv` instance, which is in turn used in conjun
 - Resolves the `TypeError` when passing an `Ajv` instance to the SchemaRegistry constructor options.
 
 #### Bonus Features
+
 - Saves you from having to handle the schema ID.
 
 ## Installation
