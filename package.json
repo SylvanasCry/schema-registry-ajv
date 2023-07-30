@@ -31,7 +31,7 @@
     "prebuild": "npm run clean",
     "build": "tsc --build tsconfig.build.json",
     "postbuild": "cp package.json README.md dist/",
-    "postpublish": "cp dist/package.json . && npm i --package-lock-only"
+    "postpublish": "pwd && cd .. && cp dist/package.json . && npm i --package-lock-only"
   },
   "peerDependencies": {
     "@kafkajs/confluent-schema-registry": ">= 3.3.0",
