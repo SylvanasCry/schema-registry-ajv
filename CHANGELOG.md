@@ -1,0 +1,8 @@
+## [1.1.8](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.1.7...v1.1.8) (2023-07-30)
+
+
+### Bug Fixes
+
+* Semantic-release build ([50fb52f](https://github.com/SylvanasCry/schema-registry-ajv/commit/50fb52f6fee4293ad2b01e18e515ee0ae3d9cb04))
+* Semantic-release build ([7976f48](https://github.com/SylvanasCry/schema-registry-ajv/commit/7976f482ab985b9081d864cda07f87577844b219))
+* Semantic-release build ([6613c53](https://github.com/SylvanasCry/schema-registry-ajv/commit/6613c53786c57b03dee1ca97ad14cd143331579b))
