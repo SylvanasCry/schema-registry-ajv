@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.1.0...v1.1.1) (2023-07-30)
+
+
+### Bug Fixes
+
+* CI artifacts to dist ([cc6f1e2](https://github.com/SylvanasCry/schema-registry-ajv/commit/cc6f1e2ed8da6bff852fad13963e001b8ec73ecd))
+
 # [1.1.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.4...v1.1.0) (2023-07-30)
 
 
