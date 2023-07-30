@@ -51,10 +51,11 @@ jobs:
         run: |
           cp dist/package.json .
           npm i --package-lock-only
-          git config user.name "Sylvanas Cry"
-          git config user.email 87pimpf@gmail.com
-          git commit -a -m "chore(release): Update package*.json [skip ci]"
-          git push -o ci.skip
+          if ! git diff-index --quiet HEAD; then
+            git config user.name "Sylvanas Cry"
+            git config user.email 87pimpf@gmail.com
+            git commit -a -m "chore(release): Update package*.json [skip ci]"
+            git push -o ci.skip
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
