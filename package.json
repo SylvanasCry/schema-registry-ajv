@@ -27,7 +27,7 @@
   "scripts": {
     "prepare": "husky install",
     "clean": "rimraf dist",
-    "postclean": "npm run test",
+    "postclean": "npm run test:cov",
     "lint": "eslint \"{src,test}/**/*.ts\" --max-warnings=0",
     "pretest": "npm run lint",
     "test": "jest",
