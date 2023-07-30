@@ -48,12 +48,11 @@ jobs:
         run: npx semantic-release
 
       - name: Update package.json and package-lock.json
-#        uses: oleksiyrudenko/gha-git-credentials@v2-latest
-#        with:
-#          token: '${{ secrets.GITHUB_TOKEN }}'
         run: |
           cp dist/package.json .
           npm i --package-lock-only
+          git config user.name "Sylvanas Cry"
+          git config user.email 87pimpf@gmail.com
           git commit -a -m "chore(release): Update package*.json [skip ci]"
           git push -o ci.skip
 
