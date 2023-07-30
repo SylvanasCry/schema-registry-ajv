@@ -32,6 +32,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "test:cov": "jest --coverage",
+    "test-coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
     "prebuild": "npm run clean",
     "build": "tsc",
