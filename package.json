@@ -1,6 +1,6 @@
 {
   "name": "@sylvanas-cry/schema-registry-ajv",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "An Ajv instance wrapper for @kafkajs/confluent-schema-registry.",
   "repository": {
     "url": "git@github.com:SylvanasCry/schema-registry-ajv.git"
@@ -10,10 +10,12 @@
     "name": "Sylvanas Cry",
     "email": "sylvanas@gmx.us"
   },
-  "contributors": [{
-    "name": "Ilia Smirnov",
-    "email": "smirnov.i.o@yandex.ru"
-  }],
+  "contributors": [
+    {
+      "name": "Ilia Smirnov",
+      "email": "smirnov.i.o@yandex.ru"
+    }
+  ],
   "keywords": [
     "confluent schema registry",
     "schema-registry",
