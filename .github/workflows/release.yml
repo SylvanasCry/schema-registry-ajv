@@ -51,7 +51,7 @@ jobs:
         run: |
           cp dist/package.json .
           npm i --package-lock-only
-          if ! git diff-index --quiet HEAD; then
+          if [[ `git status --porcelain` ]]; then
             git config user.name "Sylvanas Cry"
             git config user.email 87pimpf@gmail.com
             git commit -a -m "chore(release): Update package*.json [skip ci]"
