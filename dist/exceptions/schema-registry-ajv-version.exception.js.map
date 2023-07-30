@@ -1,1 +1,0 @@
-{"version":3,"file":"schema-registry-ajv-version.exception.js","sourceRoot":"","sources":["../../src/exceptions/schema-registry-ajv-version.exception.ts"],"names":[],"mappings":";;;AAAA,MAAa,iCAAkC,SAAQ,KAAK;IAExC;IACA;IAFlB,YACkB,OAAe,EACf,MAAc;QAE9B,KAAK,CAAC,qDAAqD,OAAO,aAAa,MAAM,IAAI,CAAC,CAAC;QAH3E,YAAO,GAAP,OAAO,CAAQ;QACf,WAAM,GAAN,MAAM,CAAQ;IAGhC,CAAC;CACF;AAPD,8EAOC"}
