@@ -27,22 +27,32 @@ jobs:
         with:
           node-version: '>=18.x.x'
 
-      - name: Prepare
+      - name: Install dependencies, run eslint, tests and build
         run: |
           npm ci
           npm run lint
           npm run test:cov
           npm run build
 
+      - name: Add extra files to dist
+        run: cp package.json README.md dist/
+
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
 
-      - name: Release
+      - name: Publish NPM package
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           HUSKY: 0
         run: npx semantic-release
+
+      - name: Update package.json and package-lock.json
+        run: |
+          cp dist/package.json .
+          npm i --package-lock-only
+          git commit -a -m "chore(release): Update package*.json [skip ci]"
+          git push -o ci.skip
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
