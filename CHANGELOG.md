@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.4...v1.1.0) (2023-07-30)
+
+
+### Features
+
+* Update README.md ([7d752d1](https://github.com/SylvanasCry/schema-registry-ajv/commit/7d752d1be6dc65d69f08be32cad016fe042b21dd))
+
 ## [1.0.4](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.3...v1.0.4) (2023-07-30)
 
 
