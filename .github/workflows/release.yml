@@ -25,23 +25,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: '>=18.x.x'
 
-      - name: Install dependencies
-        run: npm clean-install
-
-      - name: Run tests
-        run: npm run test:cov
-
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2
+      - name: Prepare
+        run: |
+          npm ci
+          npm run lint
+          npm run test:cov
+          npm run build
 
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
 
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           HUSKY: 0
-        run: npm run semantic-release
+        run: npx semantic-release
+
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v2
