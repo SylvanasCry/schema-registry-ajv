@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.1...v1.0.2) (2023-07-30)
+
+
+### Bug Fixes
+
+* Fix types and builder.build() return design ([904cacd](https://github.com/SylvanasCry/schema-registry-ajv/commit/904cacd9275b4e2751066ec61b28de77493e3341))
+
 ## [1.0.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.0...v1.0.1) (2023-07-30)
 
 
