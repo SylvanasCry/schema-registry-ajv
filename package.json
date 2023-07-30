@@ -36,7 +36,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepublish": "npm run build",
-    "semantic-release": "semantic-release"
+    "semantic-release": "echo $GITHUB_TOKEN && echo $NPM_TOKEN && semantic-release"
   },
   "peerDependencies": {
     "@kafkajs/confluent-schema-registry": ">= 3.3.0",
@@ -100,13 +100,6 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "CHANGELOG.md"
-        }
-      ],
       [
         "@semantic-release/github",
         {
@@ -114,8 +107,15 @@
             { "path": "dist/index.js", "label": "Module" },
             { "path": "README.md", "label": "Documentation" },
             { "path": "CHANGELOG.md", "label": "Documentation" },
-            { "path": "LICENSE", "label": "License" }
+            { "path": "LICENSE", "label": "Documentation" }
           ]
+        }
+      ],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
         }
       ],
       [
