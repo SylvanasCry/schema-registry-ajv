@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.2...v2.0.0) (2023-07-30)
+
+
+### Features
+
+* Update builder.build() return type ([a964322](https://github.com/SylvanasCry/schema-registry-ajv/commit/a964322c5a7c18acabd4ba1fd2e1169087f8632a))
+
+
+### BREAKING CHANGES
+
+* Return type of builder.build() changed to Object type
+
 ## [1.0.2](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.1...v1.0.2) (2023-07-30)
 
 
