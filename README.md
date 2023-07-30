@@ -85,7 +85,6 @@ try {
 
 [CHANGELOG.md](./CHANGELOG.md)
 
-
 ## License
 
 [MIT](./LICENSE)
