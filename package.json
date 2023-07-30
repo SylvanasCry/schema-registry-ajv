@@ -29,7 +29,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
     "prebuild": "npm run clean",
-    "build": "tsc --build tsconfig.build.json"
+    "build": "tsc --build tsconfig.build.json",
+    "postbuild": "cp package.json README.md dist/",
+    "postpublish": "cp dist/package.json . && npm i --package-lock-only"
   },
   "peerDependencies": {
     "@kafkajs/confluent-schema-registry": ">= 3.3.0",
@@ -41,7 +43,6 @@
     "@kafkajs/confluent-schema-registry": "^3.3.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.1.0",
     "@semantic-release/npm": "^10.0.4",
     "@sylvanas-cry/eslint-config": "^1.0.0",
     "@types/jest": "^29.5.3",
@@ -95,26 +96,17 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       [
-        "@semantic-release/github",
+        "@semantic-release/npm",
         {
-          "assets": [
-            {
-              "path": "dist/index.js",
-              "label": "Module"
-            },
-            {
-              "path": "README.md",
-              "label": "Documentation"
-            }
-          ]
+          "pkgRoot": "dist"
         }
       ],
-      "@semantic-release/npm",
       [
         "@semantic-release/git",
         {
           "assets": [
             "package.json",
+            "package-lock.json",
             "CHANGELOG.md"
           ],
           "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
