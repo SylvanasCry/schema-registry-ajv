@@ -34,6 +34,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepublish": "npm run build",
+    "publish": "npm publish --access public",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
