@@ -54,8 +54,8 @@ jobs:
           cp dist/package.json .
           npm i --package-lock-only
           if [[ `git status --porcelain` ]]; then
-            git config user.name "Sylvanas Cry"
-            git config user.email 87pimpf@gmail.com
+            git config user.name github-actions
+            git config user.email github-actions@github.com
             git commit -a -m "chore(release): Update package*.json [skip ci]"
             git push -o ci.skip
           fi
