@@ -36,7 +36,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepublish": "npm run build",
-    "semantic-release": "echo $GITHUB_TOKEN && echo $NPM_TOKEN && semantic-release"
+    "semantic-release": "semantic-release --debug"
   },
   "peerDependencies": {
     "@kafkajs/confluent-schema-registry": ">= 3.3.0",
