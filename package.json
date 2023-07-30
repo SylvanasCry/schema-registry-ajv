@@ -34,7 +34,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
     "prebuild": "npm run clean",
-    "build": "tsc --project tsconfig.build.json && cp package.json dist/package.json",
+    "build": "tsc --project tsconfig.build.json && cp package.json dist && cp *.md dist && cp LICENSE dist",
     "prepublish": "npm run build",
     "semantic-release": "semantic-release --debug"
   },
