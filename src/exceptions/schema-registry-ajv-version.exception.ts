@@ -3,6 +3,6 @@ export class SchemaRegistryAjvVersionException extends Error {
     public readonly subject: string,
     public readonly reason: string,
   ) {
-    super(`Failed to get the latest schema version (subject=${subject} reason="${reason}")`);
+    super(`Failed to get the latest schema version (subject="${subject}" reason="${reason}")`);
   }
 }

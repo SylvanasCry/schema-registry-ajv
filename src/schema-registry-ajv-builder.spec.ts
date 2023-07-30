@@ -3,10 +3,10 @@ import Ajv2020 from 'ajv/dist/2020';
 import nock from 'nock';
 import { SchemaRegistryAjvSchemaException, SchemaRegistryAjvVersionException } from './exceptions';
 import { SchemaRegistryAjv } from './schema-registry-ajv';
-import { SchemaRegistryAjvWrapper } from './schema-registry-ajv-wrapper';
-import { SchemaRegistryAjvWrapperOptions } from './schema-registry-ajv-wrapper.types';
+import { SchemaRegistryAjvBuilder } from './schema-registry-ajv-builder';
+import { SchemaRegistryAjvBuilderOptions } from './schema-registry-ajv-builder.types';
 
-describe('SchemaRegistryAjvWrapper', () => {
+describe('SchemaRegistryAjvBuilder', () => {
   const subject = 'foo.bar.baz.event.baz-done.v0-value';
   const host = 'https://schema-registry.example.com';
 
@@ -44,7 +44,7 @@ describe('SchemaRegistryAjvWrapper', () => {
 
   const headers = { 'Content-Type': 'application/json' };
 
-  const options: SchemaRegistryAjvWrapperOptions = {
+  const options: SchemaRegistryAjvBuilderOptions = {
     ajvClass: Ajv2020,
     ajvFormats: ['date-time'],
     ajvCustomFormats: [{ name: 'custom-format', format: () => true }],
@@ -55,35 +55,29 @@ describe('SchemaRegistryAjvWrapper', () => {
     },
   };
 
-  afterAll(() => {
-    nock.cleanAll();
-  });
-
   afterEach(() => {
     nock.cleanAll();
   });
 
   function createVersionsScope(...args: Parameters<nock.Interceptor['reply']>): void {
     nock(host)
-      // .persist()
       .get(`/subjects/${subject}/versions`)
       .reply(...args);
   }
 
   function createSchemaScope(version: number, ...args: Parameters<nock.Interceptor['reply']>): void {
     nock(host)
-      // .persist()
       .get(`/subjects/${subject}/versions/${version.toString(10)}`)
       .reply(...args);
   }
 
   it('should create SchemaRegistryAjv instance', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const ajv = await wrapper.getInstance();
+    const [ajv] = await builder.build();
 
     expect(ajv).toBeInstanceOf(SchemaRegistryAjv);
     expect(ajv.addSchema(schema)).toBeInstanceOf(Ajv2020);
@@ -91,12 +85,12 @@ describe('SchemaRegistryAjvWrapper', () => {
   });
 
   it('it should provide SchemaRegistry comfortable Ajv instance', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const ajv = await wrapper.getInstance();
+    const [ajv] = await builder.build();
     const schemaRegistry = new SchemaRegistry({
       host,
     }, { [SchemaType.JSON]: { ajvInstance: ajv } });
@@ -105,7 +99,7 @@ describe('SchemaRegistryAjvWrapper', () => {
   });
 
   it('should return a specific schema id', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper({
+    const builder = new SchemaRegistryAjvBuilder({
       ...options,
       schemaRegistry: {
         ...options.schemaRegistry,
@@ -119,22 +113,22 @@ describe('SchemaRegistryAjvWrapper', () => {
       id: 1,
     }, headers);
 
-    await wrapper.getInstance();
-    expect(wrapper.getSchemaId()).toBe(1);
+    await builder.build();
+    expect(builder.getSchemaId()).toBe(1);
   });
 
   it('should return a latest schema id', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    await wrapper.getInstance();
-    expect(wrapper.getSchemaId()).toBe(3);
+    await builder.build();
+    expect(builder.getSchemaId()).toBe(3);
   });
 
   it('should return a default latest schema id', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper({
+    const builder = new SchemaRegistryAjvBuilder({
       ...options,
       schemaRegistry: {
         ...options.schemaRegistry,
@@ -148,23 +142,24 @@ describe('SchemaRegistryAjvWrapper', () => {
       id: 6,
     }, headers);
 
-    await wrapper.getInstance();
-    expect(wrapper.getSchemaId()).toBe(6);
+    await builder.build();
+    expect(builder.getSchemaId()).toBe(6);
   });
 
   it('should return validation errors', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1, 2, 3], headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    const ajv = await wrapper.getInstance();
+    const [ajv, getErrors] = await builder.build();
     const validate = ajv.compile({});
     const isValid = validate({
       attribute: 'BROKEN',
       custom: 'value',
     });
-    const errors = wrapper.getErrors();
+    const errors = getErrors();
+
     expect(isValid).toBe(false);
     expect(errors).toBeInstanceOf(Array);
     expect(errors!.length).toBe(1);
@@ -175,45 +170,45 @@ describe('SchemaRegistryAjvWrapper', () => {
   });
 
   it('should throw SchemaRegistryAjvVersionException on broken versions', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, 'BROKEN', headers);
     createSchemaScope(3, 200, schemaReply, headers);
 
-    await expect(wrapper.getInstance())
+    await expect(builder.build())
       .rejects
       .toThrowError(SchemaRegistryAjvVersionException);
   });
 
   it('should throw SchemaRegistryAjvSchemaException on broken schema', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1], headers);
     createSchemaScope(1, 200, 'BROKEN', headers);
 
-    await expect(wrapper.getInstance())
+    await expect(builder.build())
       .rejects
       .toThrowError(SchemaRegistryAjvSchemaException);
   });
 
   it('should throw SchemaRegistryAjvVersionException on AxiosError on versions request', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(400, [1], headers);
     createSchemaScope(1, 200, schemaReply, headers);
 
-    await expect(wrapper.getInstance())
+    await expect(builder.build())
       .rejects
       .toThrowError(SchemaRegistryAjvVersionException);
   });
 
   it('should throw SchemaRegistryAjvSchemaException on AxiosError on schema request', async () => {
-    const wrapper = new SchemaRegistryAjvWrapper(options);
+    const builder = new SchemaRegistryAjvBuilder(options);
 
     createVersionsScope(200, [1], headers);
     createSchemaScope(1, 502, schemaReply, headers);
 
-    await expect(wrapper.getInstance())
+    await expect(builder.build())
       .rejects
       .toThrowError(SchemaRegistryAjvSchemaException);
   });

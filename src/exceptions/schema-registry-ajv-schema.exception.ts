@@ -4,6 +4,6 @@ export class SchemaRegistryAjvSchemaException extends Error {
     public readonly version: number,
     public readonly reason: string,
   ) {
-    super(`Failed to get the schema (subject=${subject} version=${version} reason="${reason}")`);
+    super(`Failed to get the schema (subject="${subject}" version=${version} reason="${reason}")`);
   }
 }

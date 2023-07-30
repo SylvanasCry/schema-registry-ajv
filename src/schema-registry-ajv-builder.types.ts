@@ -1,5 +1,5 @@
 import { JsonOptions } from '@kafkajs/confluent-schema-registry/dist/@types';
-import Ajv, { Format } from 'ajv';
+import Ajv, { Format, ValidateFunction } from 'ajv';
 import Ajv2019 from 'ajv/dist/2019';
 import Ajv2020 from 'ajv/dist/2020';
 import { FormatName, FormatOptions } from 'ajv-formats';
@@ -15,7 +15,14 @@ export interface AjvCustomFormat {
   format: Format;
 }
 
-export interface SchemaRegistryAjvWrapperSchemaRegistryOptions {
+export type GetErrorsFunction = () => ValidateFunction['errors'];
+
+export type SchemaRegistryAjvBuilderBuildReturn = [
+  SchemaRegistryAjvInstance,
+  GetErrorsFunction,
+];
+
+export interface SchemaRegistryAjvBuilderSchemaRegistryOptions {
   /**
    * Schema Registry URI.
    **
@@ -42,7 +49,7 @@ export interface SchemaRegistryAjvWrapperSchemaRegistryOptions {
   readonly version?: number | 'latest';
 }
 
-export interface SchemaRegistryAjvWrapperOptions {
+export interface SchemaRegistryAjvBuilderOptions {
   /**
    * Ajv class you want to use. Check "$schema" attribute of your schemas.
    */
@@ -65,5 +72,5 @@ export interface SchemaRegistryAjvWrapperOptions {
   /**
    * SchemaRegistry options.
    */
-  readonly schemaRegistry: SchemaRegistryAjvWrapperSchemaRegistryOptions;
+  readonly schemaRegistry: SchemaRegistryAjvBuilderSchemaRegistryOptions;
 }

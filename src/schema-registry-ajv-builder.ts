@@ -3,30 +3,33 @@ import addFormats from 'ajv-formats';
 import axios from 'axios';
 import { SchemaRegistryAjvSchemaException, SchemaRegistryAjvVersionException } from './exceptions';
 import { SchemaRegistryAjv } from './schema-registry-ajv';
-import { SchemaRegistryAjvInstance, SchemaRegistryAjvWrapperOptions } from './schema-registry-ajv-wrapper.types';
+import {
+  SchemaRegistryAjvBuilderBuildReturn,
+  SchemaRegistryAjvBuilderOptions,
+} from './schema-registry-ajv-builder.types';
 
-export class SchemaRegistryAjvWrapper {
+export class SchemaRegistryAjvBuilder {
   /**
-   * Wrapper options.
+   * Builder options.
    */
-  private readonly options: SchemaRegistryAjvWrapperOptions;
+  private readonly options: SchemaRegistryAjvBuilderOptions;
 
   /**
    * To handle validation errors.
    *
-   * @example console.log(wrapper.getErrors());
+   * @example console.log(builder.getErrors());
    */
   private validate: ValidateFunction;
 
   /**
    * To handle schema id.
    *
-   * @example await this.schemaRegistry.encode(wrapper.getSchemaId(), event)
+   * @example await this.schemaRegistry.encode(builder.getSchemaId(), event)
    * @param options
    */
   private schemaId: number;
 
-  constructor(options: SchemaRegistryAjvWrapperOptions) {
+  constructor(options: SchemaRegistryAjvBuilderOptions) {
     // Remove trailing slash from SchemaRegistry host
     this.options = {
       ...options,
@@ -37,7 +40,7 @@ export class SchemaRegistryAjvWrapper {
     };
   }
 
-  public async getInstance(): Promise<SchemaRegistryAjvInstance> {
+  public async build(): Promise<SchemaRegistryAjvBuilderBuildReturn> {
     const { ajvClass, ajvFormats, schemaRegistry } = this.options;
     const version = typeof schemaRegistry.version === 'number'
       ? schemaRegistry.version
@@ -58,7 +61,10 @@ export class SchemaRegistryAjvWrapper {
     const validate = ajv.compile(schema);
     this.validate = validate;
 
-    return new SchemaRegistryAjv(ajv, validate);
+    return [
+      new SchemaRegistryAjv(ajv, validate),
+      () => this.validate.errors,
+    ];
   }
 
   /**
@@ -66,13 +72,6 @@ export class SchemaRegistryAjvWrapper {
    */
   public getSchemaId(): number {
     return this.schemaId;
-  }
-
-  /**
-   * Returns Ajv validation errors array.
-   */
-  public getErrors(): ValidateFunction['errors'] {
-    return this.validate.errors;
   }
 
   private async getSchema(version: number): Promise<AnySchema> {
@@ -102,7 +101,7 @@ export class SchemaRegistryAjvWrapper {
         // noinspection ExceptionCaughtLocallyJS
         throw new SchemaRegistryAjvVersionException(
           this.options.schemaRegistry.subject,
-          'Response data broken',
+          'Response data is broken',
         );
       }
 

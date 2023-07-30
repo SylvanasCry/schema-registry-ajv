@@ -6,7 +6,7 @@ describe('Library index', () => {
       SchemaRegistryAjvSchemaException: expect.any(Function),
       SchemaRegistryAjvVersionException: expect.any(Function),
       SchemaRegistryAjv: expect.any(Function),
-      SchemaRegistryAjvWrapper: expect.any(Function),
+      SchemaRegistryAjvBuilder: expect.any(Function),
     });
   });
 });
