@@ -2,6 +2,8 @@
 
 An Ajv instance wrapper for @kafkajs/confluent-schema-registry.
 
+[![Coverage Status](https://coveralls.io/repos/github/SylvanasCry/schema-registry-ajv/badge.svg)](https://coveralls.io/github/SylvanasCry/schema-registry-ajv)
+
 ## Installation
 
 Install the library:
