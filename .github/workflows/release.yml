@@ -48,9 +48,9 @@ jobs:
         run: npx semantic-release
 
       - name: Update package.json and package-lock.json
-        uses: oleksiyrudenko/gha-git-credentials@v2-latest
-        with:
-          token: '${{ secrets.GITHUB_TOKEN }}'
+#        uses: oleksiyrudenko/gha-git-credentials@v2-latest
+#        with:
+#          token: '${{ secrets.GITHUB_TOKEN }}'
         run: |
           cp dist/package.json .
           npm i --package-lock-only
