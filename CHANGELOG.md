@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.1.8...v1.1.9) (2023-07-30)
+
+
+### Bug Fixes
+
+* Fix package.json main property ([448653e](https://github.com/SylvanasCry/schema-registry-ajv/commit/448653e2be22a68a63d778d3e146fdc957bdfb20))
+
 ## [1.1.8](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.1.7...v1.1.8) (2023-07-30)
 
 
