@@ -30,7 +30,7 @@
     "postclean": "npm run test",
     "lint": "eslint \"{src,test}/**/*.ts\" --max-warnings=0",
     "pretest": "npm run lint",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:cov": "jest --coverage",
     "test-coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
