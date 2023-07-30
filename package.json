@@ -33,6 +33,7 @@
     "test:debug": "node --inspect-brk -r ts-node/register node_modules/.bin/jest --runInBand",
     "prebuild": "npm run clean",
     "build": "tsc",
+    "prepublish": "npm run build",
     "semantic-release": "semantic-release --dry-run"
   },
   "peerDependencies": {
