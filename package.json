@@ -36,7 +36,7 @@
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.build.json && cp package.json dist && cp *.md dist && cp LICENSE dist",
     "prepublish": "npm run build",
-    "semantic-release": "semantic-release --debug"
+    "semantic-release": "semantic-release"
   },
   "peerDependencies": {
     "@kafkajs/confluent-schema-registry": ">= 3.3.0",
