@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.0.0...v2.0.1) (2023-07-30)
+
+
+### Bug Fixes
+
+* Update README.md, release.yml ([8a9c258](https://github.com/SylvanasCry/schema-registry-ajv/commit/8a9c25846820a9e46ff5ba29503dec9f54774268))
+
 # [2.0.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v1.0.2...v2.0.0) (2023-07-30)
 
 
