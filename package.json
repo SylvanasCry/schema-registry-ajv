@@ -10,12 +10,6 @@
     "name": "Sylvanas Cry",
     "email": "sylvanas@gmx.us"
   },
-  "contributors": [
-    {
-      "name": "Ilia Smirnov",
-      "email": "smirnov.i.o@yandex.ru"
-    }
-  ],
   "keywords": [
     "confluent schema registry",
     "schema-registry",
