@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.0.1...v2.1.0) (2023-08-01)
+
+
+### Bug Fixes
+
+* Remove unused postpublish.sh ([8f05a68](https://github.com/SylvanasCry/schema-registry-ajv/commit/8f05a68498903dd0361418abd2e24c36affd70b2))
+* Update README.md ([4162750](https://github.com/SylvanasCry/schema-registry-ajv/commit/4162750e47610d6e6bbd31083a9b863a95ee2135))
+
+
+### Features
+
+* Add commitlint library ([428981d](https://github.com/SylvanasCry/schema-registry-ajv/commit/428981d17813119b59db036d42d5aeec315840ae))
+
 ## [2.0.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.0.0...v2.0.1) (2023-07-30)
 
 
