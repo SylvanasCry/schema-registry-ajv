@@ -3,6 +3,12 @@
 An [Ajv](https://www.npmjs.com/package/ajv) instance wrapper for [@kafkajs/confluent-schema-registry](https://www.npmjs.com/package/@kafkajs/confluent-schema-registry).
 
 [![Coverage Status](https://coveralls.io/repos/github/SylvanasCry/schema-registry-ajv/badge.svg)](https://coveralls.io/github/SylvanasCry/schema-registry-ajv)
+[![Tested with: Jest](https://img.shields.io/badge/tested_with-jest-4dc81f?logo=jest)](https://jestjs.io/)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![TypeScript 5.1.6](https://img.shields.io/badge/typescript-5.1.6-blue?logoColor=white)](https://www.typescriptlang.org/)
+[![ECMAScript 2022](https://img.shields.io/badge/es-2022-orange?logoColor=white)](https://262.ecma-international.org/13.0/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 #### Description
 
