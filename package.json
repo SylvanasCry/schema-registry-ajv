@@ -10,12 +10,6 @@
     "name": "Sylvanas Cry",
     "email": "sylvanas@gmx.us"
   },
-  "contributors": [
-    {
-      "name": "Ilia Smirnov",
-      "email": "smirnov.i.o@yandex.ru"
-    }
-  ],
   "keywords": [
     "confluent schema registry",
     "schema-registry",
@@ -45,6 +39,8 @@
     "axios": ">= 1.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-angular": "^17.6.7",
     "@kafkajs/confluent-schema-registry": "^3.3.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -73,6 +69,21 @@
     "extends": "@sylvanas-cry/eslint-config",
     "rules": {
       "@typescript-eslint/no-non-null-assertion": "off"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-angular"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "always",
+        [
+          "start-case",
+          "sentence-case"
+        ]
+      ]
     }
   },
   "jest": {
