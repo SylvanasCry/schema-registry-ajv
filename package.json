@@ -1,6 +1,6 @@
 {
   "name": "@sylvanas-cry/schema-registry-ajv",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "An Ajv instance wrapper for @kafkajs/confluent-schema-registry.",
   "repository": {
     "url": "git@github.com:SylvanasCry/schema-registry-ajv.git"
