@@ -93,7 +93,7 @@ try {
 
 ## Changes and Release Notes
 
-[CHANGELOG.md](./CHANGELOG.md)
+[CHANGELOG.md](https://github.com/SylvanasCry/schema-registry-ajv/blob/master/CHANGELOG.md)
 
 ## License
 
