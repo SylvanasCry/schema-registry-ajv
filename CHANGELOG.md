@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.1.1...v2.1.2) (2024-01-03)
+
+
+### Bug Fixes
+
+* Fix CHANGELOG.md URI ([0b9fb78](https://github.com/SylvanasCry/schema-registry-ajv/commit/0b9fb780763ef02662ff1817f183efab70ddba9d))
+
 ## [2.1.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.1.0...v2.1.1) (2024-01-03)
 
 
