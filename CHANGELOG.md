@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.1.0...v2.1.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* Resolve 3rd party package vulnerabilities ([90b72a8](https://github.com/SylvanasCry/schema-registry-ajv/commit/90b72a8d69297612f8ab4cbe19b79336a91fc6a2))
+
 # [2.1.0](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.0.1...v2.1.0) (2023-08-01)
 
 
