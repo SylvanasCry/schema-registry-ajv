@@ -1,3 +1,9 @@
+## [2.1.4](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.1.3...v2.1.4) (2026-11-21)
+
+### Bug Fixes
+
+* Type Ajv classes by their common core class ([238f91a](https://github.com/SylvanasCry/schema-registry-ajv/commit/238f91ac93bfe9fba1c67e70c55b337c625ae903))
+
 ## [2.1.2](https://github.com/SylvanasCry/schema-registry-ajv/compare/v2.1.1...v2.1.2) (2024-01-03)
 
 
