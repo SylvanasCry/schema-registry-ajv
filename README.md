@@ -16,9 +16,17 @@ The library is a wrapper for the `Ajv` instance, which is in turn used in conjun
 
 #### Key Features
 
-- Resolves the `Ajv` "schema with id ... already exists" error that occurs at high RPS during communication with Kafka when using `@kafkajs/confluent-schema-registry`.
+- Resolves the `Ajv` "schema with key or id ... already exists" error that occurs at high RPS during communication with Kafka when using `@kafkajs/confluent-schema-registry`.
 - Allows retrieval of `Ajv` validation errors for the payload data by pulling them up to the application level.
 - Resolves the `TypeError` when passing an `Ajv` instance to the SchemaRegistry constructor options.
+
+#### Upstream Status
+
+Checked against `@kafkajs/confluent-schema-registry` 4.1.0:
+
+- **"Already exists" error: not fixed.** Concurrent `encode()` / `decode()` calls on a cold cache compile the same schema on a shared `ajvInstance` more than once. Reported in [kafkajs/confluent-schema-registry#357](https://github.com/kafkajs/confluent-schema-registry/issues/357). This is the main reason to use this library.
+- **Validation errors: partly fixed.** The `detailedErrorPaths` JSON option adds the path and message of each error to `ConfluentSchemaRegistryValidationError.paths`.
+- **`TypeError`: fixed.** `ajvInstance` accepts `Ajv`, `Ajv2019` and `Ajv2020` instances.
 
 #### Bonus Features
 
