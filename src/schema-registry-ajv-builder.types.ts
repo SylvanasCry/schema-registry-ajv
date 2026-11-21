@@ -1,14 +1,34 @@
-import { JsonOptions } from '@kafkajs/confluent-schema-registry/dist/@types';
-import Ajv, { Format, ValidateFunction } from 'ajv';
-import Ajv2019 from 'ajv/dist/2019';
-import Ajv2020 from 'ajv/dist/2020';
+import { SchemaRegistry, SchemaType } from '@kafkajs/confluent-schema-registry';
+import { Format, ValidateFunction } from 'ajv';
+import type AjvCore from 'ajv/dist/core';
 import { FormatName, FormatOptions } from 'ajv-formats';
 
+/**
+ * @deprecated Not used by the library anymore; use {@link AjvClass} for `ajvClass`.
+ */
 export type Ctor<T = any> = new (...args: any[]) => T;
 
-export type AjvInstance = Ajv | Ajv2019 | Ajv2020;
+/**
+ * Any Ajv flavor for JSON Schema (`Ajv`, `Ajv2019`, `Ajv2020`, ...): they all extend the Ajv core class.
+ */
+export type AjvInstance = AjvCore;
 
-export type SchemaRegistryAjvInstance = NonNullable<JsonOptions['ajvInstance']>;
+/**
+ * Ajv class to instantiate, e.g. `Ajv`, `Ajv2019` or `Ajv2020`.
+ */
+export type AjvClass = new () => AjvInstance;
+
+/**
+ * Options of the `SchemaRegistry` constructor. Derived from its public signature,
+ * since the library does not export its option types.
+ */
+type SchemaRegistryOptions = NonNullable<ConstructorParameters<typeof SchemaRegistry>[1]>;
+
+type SchemaRegistryJsonOptions = NonNullable<
+  Extract<SchemaRegistryOptions, { [SchemaType.JSON]?: unknown }>[SchemaType.JSON]
+>;
+
+export type SchemaRegistryAjvInstance = NonNullable<SchemaRegistryJsonOptions['ajvInstance']>;
 
 export interface AjvCustomFormat {
   name: string;
@@ -22,7 +42,7 @@ export interface BuildReturnType {
   /**
    * SchemaRegistry constructor compatible Ajv instance.
    *
-   * @see {import('@kafkajs/confluent-schema-registry/dist/@types').JsonOptions}
+   * @see SchemaRegistryAjvInstance
    */
   ajvInstance: SchemaRegistryAjvInstance;
 
@@ -68,7 +88,7 @@ export interface SchemaRegistryAjvBuilderOptions {
   /**
    * Ajv class you want to use. Check "$schema" attribute of your schemas.
    */
-  readonly ajvClass: Ctor<AjvInstance>;
+  readonly ajvClass: AjvClass;
 
   /**
    * Ajv native format options.
